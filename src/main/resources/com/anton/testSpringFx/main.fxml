@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anton.testSpringFx.controllers.MainController">
+   <children>
+      <Label fx:id="lab" layoutX="165.0" layoutY="183.0" prefHeight="17.0" prefWidth="279.0" text="Label" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="165.0" AnchorPane.rightAnchor="156.0" AnchorPane.topAnchor="183.0" />
+   </children>
+</AnchorPane>
