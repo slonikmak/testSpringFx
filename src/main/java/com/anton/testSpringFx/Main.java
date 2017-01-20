@@ -1,5 +1,6 @@
 package com.anton.testSpringFx;
 
+import com.anton.testSpringFx.controllers.ControllerInt;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,6 +10,8 @@ import javafx.util.Callback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
@@ -18,16 +21,20 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  */
 public class Main extends Application {
     private static final Logger logger = LoggerFactory.getLogger("Main");
+    private final AbstractApplicationContext ctx = new ClassPathXmlApplicationContext("spring-config.xml");
 
-    public void start(Stage primaryStage) throws Exception {
+    public void start(final Stage primaryStage) throws Exception {
         logger.info("start");
-        final ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-config.xml");
+        //final ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-config.xml");
+        ctx.registerShutdownHook();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
 
         loader.setControllerFactory(new Callback<Class<?>, Object>() {
             public Object call(Class<?> param) {
-                return ctx.getBean(param);
+                ControllerInt controller = (ControllerInt) ctx.getBean(param);
+                controller.setPrimaryStage(primaryStage);
+                return controller;
             }
         });
 
@@ -42,6 +49,7 @@ public class Main extends Application {
         logger.info("init");
     }
     public void stop(){
+        ctx.stop();
         logger.info("stop");
     }
 
