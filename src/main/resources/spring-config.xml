@@ -1,25 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/aop
-       http://www.springframework.org/schema/aop/spring-aop.xsd">
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-util-3.2.xsd">
 
-<bean id="mainController" class="com.anton.testSpringFx.controllers.MainController" init-method="springInit" destroy-method="closeSpring">
-        <constructor-arg index="0" value="1"/>
-        <property name="msg" value="hhhhh" />
-    </bean>
-    <bean id="innerController" class="com.anton.testSpringFx.controllers.InnerController"></bean>
-    <bean id="myaspect" class="com.anton.testSpringFx.aspects.SimpleAspect"></bean>
-    <aop:config>
-        <aop:aspect ref="myaspect">
-            <aop:pointcut id="simplePointCut"
-                          expression="execution(* com.anton.testSpringFx.controllers.MainController.setPrimaryStage(..)) "/>
-            <aop:before method="before" pointcut-ref="simplePointCut"/>
-            <aop:after method="after" pointcut-ref="simplePointCut"/>
-        </aop:aspect>
-    </aop:config>
+    <aop:aspectj-autoproxy/>
+    <bean class="com.anton.testSpringFx.SimpleBean" id="simpleBean"/>
+
+
+
+
 
 
 </beans>

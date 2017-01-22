@@ -1,5 +1,6 @@
 package com.anton.testSpringFx.controllers;
 
+import com.anton.testSpringFx.SimpleBean;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,15 +11,24 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.awt.*;
 
 /**
  * Created by Oceanos on 20.01.2017.
  */
+@Component
 public class InnerController implements ControllerInt {
+    @Autowired
+    public void setSimpleBean(SimpleBean simpleBean) {
+        this.simple = simpleBean;
+    }
+
+    private SimpleBean simple;
     @FXML
-    private void openNewWindow(){
+    private void openNewWindow(ActionEvent e){
+        clickHandle();
         Stage stage = new Stage();
         Pane pane = new Pane();
         Label label = new Label("New window");
@@ -37,6 +47,9 @@ public class InnerController implements ControllerInt {
     private Stage primaryStage;
     public void setPrimaryStage(Stage stage) {
         primaryStage = stage;
+    }
+    private void clickHandle(){
+        simple.sayHi();
     }
 
 }
